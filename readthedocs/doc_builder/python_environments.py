@@ -87,11 +87,13 @@ class Virtualenv(PythonEnvironment):
         if self.config.use_system_site_packages:
             site_packages = '--system-site-packages'
         env_path = self.venv_path()
+        env_python = '--python={}'.format(self.config.python_interpreter)
         self.build_env.run(
             self.config.python_interpreter,
             '-mvirtualenv',
             site_packages,
             env_path,
+            env_python,
             bin_path=None,  # Don't use virtualenv bin that doesn't exist yet
         )
 
