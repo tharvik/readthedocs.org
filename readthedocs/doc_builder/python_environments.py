@@ -97,7 +97,19 @@ class Virtualenv(PythonEnvironment):
             bin_path=None,  # Don't use virtualenv bin that doesn't exist yet
         )
 
+    def __upgrade_pip(self):
+        self.build_env.run(
+            'python',
+            self.venv_bin(filename='pip'),
+            'install',
+            '--upgrade',
+            'pip',
+            bin_path=self.venv_bin()
+        )
+
     def install_core_requirements(self):
+        self.__upgrade_pip()
+
         requirements = [
             'sphinx==1.3.5',
             'Pygments==2.1.3',
